@@ -1,6 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../actions';
 
-export default class Login extends Component {
+import './Login.css';
+
+class Login extends Component {
   state = {
     creds: {
       number: '',
@@ -9,40 +13,50 @@ export default class Login extends Component {
   }
 
   handleChange = e => {
-    this.setState({ creds: {
-      ...this.state.creds,
-      [e.target.name]: e.target.value
-    } });
+    this.setState({ 
+      creds: {
+        ...this.state.creds,
+        [e.target.name]: e.target.value
+      } 
+    });
   }
   
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.creds)
+    this.props
+      .login(this.state.creds)
+      .then(() => {
+        this.props.history.push("/trip-split")
+      });
   }
       
   render = () => {
     const { number, password } = this.state.creds;
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <input 
-            type="text"
-            value = { number }
-            placeholder="Phone Number"
-            name="number"
-            onChange={this.handleChange}
-          />
-          <input 
-            type="password"
-            value = { password }
-            placeholder="Password"
-            name="password"
-            onChange={this.handleChange}
-          />
-          <button type="submit">Log In</button>
-        </form>
+      <div className="loginPage">
+        <div className="loginImg">
+          <form onSubmit={this.handleSubmit}>
+            <input 
+              type="text"
+              value = { number }
+              placeholder="Phone Number"
+              name="number"
+              onChange={this.handleChange}
+            />
+            <input 
+              type="password"
+              value = { password }
+              placeholder="Password"
+              name="password"
+              onChange={this.handleChange}
+            />
+            <button type="submit">Log In</button>
+          </form>
+        </div>
       </div>
     )
   }
 }
+
+export default connect(null, { login })(Login)

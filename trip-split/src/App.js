@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import Login from './components/Login/Login';
 import Signup from './components/Signup';
+import MainApp from './components/MainApp';
 import PrivateRoute from './components/Login/PrivateRoute';
 
 class App extends Component {
@@ -13,9 +14,9 @@ class App extends Component {
     return (
       <Router>
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component = { Login }/>
+        <Route exact path="/login" component={Login}/>
         <Route exact path="/signup" component={Signup} />
-        <Route exact path="/trip-split" render = { props => <div>hello</div> }/>
+        <PrivateRoute exact path="/trip-split" component={MainApp} />
       </Router>
     );
   }

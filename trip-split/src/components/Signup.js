@@ -8,6 +8,15 @@ class Signup extends React.Component {
     moneyApp: ''
   };
 
+  changeHandler = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  submitHandler = e => {
+    e.preventDefault();
+    
+  }
+
   render() {
     return (
       <div>
