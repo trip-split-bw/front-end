@@ -10,7 +10,7 @@ const Home = () => {
       </header>
       <div className="buttons">
         <Link to="/login" className="loginBtn">Login</Link>
-        <Link to="/signup" className="signupBtn">Signup</Link>
+        <Link to="/register" className="signupBtn">Signup</Link>
       </div>
     </div>
   )

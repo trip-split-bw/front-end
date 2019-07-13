@@ -7,7 +7,7 @@ import './Login.css';
 class Login extends Component {
   state = {
     creds: {
-      number: '',
+      phone_number: '',
       password: '',
     }
   }
@@ -23,11 +23,15 @@ class Login extends Component {
   
   handleSubmit = e => {
     e.preventDefault();
+    const { phone_number, password } = this.state.creds
+
     this.props
-      .login(this.state.creds)
-      .then(() => {
-        this.props.history.push("/trip-split")
-      });
+      .login({
+        phone_number: parseInt(phone_number),
+        password: password
+      })
+      .then(() => localStorage.setItem('user', this.props.id))
+      .catch(err => console.log(err))
   }
       
   render = () => {
@@ -41,7 +45,7 @@ class Login extends Component {
               type="text"
               value = { number }
               placeholder="Phone Number"
-              name="number"
+              name="phone_number"
               onChange={this.handleChange}
             />
             <input 
@@ -59,4 +63,9 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { login })(Login)
+const mapStateToProps = state => ({
+  loggingIn: state.loginReducer.loggingIn,
+  id: state.loginReducer.id,
+})
+
+export default connect(mapStateToProps, { login })(Login)
