@@ -1,8 +1,76 @@
 @media(min-width: 0px) {
+  body {
+    overflow: hidden;
+    height: 100vh;
+  }
+
   .loginPage {
     height: 100vh;
     background-image: url('../../assets/street-timelapse.jpg');
     background-size: cover;
     background-position: 40%;
+  }
+
+  .loginForm {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loginForm .input {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+    width: 75%;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    border-bottom: 2px solid white;
+  }
+
+  .loginForm .input::placeholder {
+    color: white;
+  }
+
+  .loginButton {
+    width: 50%;
+    margin-top: 30px;
+    text-decoration: none;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 36px;
+    text-align: center;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+@media(min-width: 500px) {
+  .loginPage {
+    background: url('../../assets/street-timelapse.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .loginForm .input {
+    width: 33%;
+  }
+
+  .loginForm .loginButton {
+    width: 33%;
+  }
+}
+
+@media(min-width: 800px) {
+  .loginForm {
+    max-width: 800px;
+    margin: 0 auto;
   }
 }
