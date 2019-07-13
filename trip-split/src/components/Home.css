@@ -1,0 +1,58 @@
+@media(min-width: 0px) {
+  body {
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  .home {
+    height: 100vh;
+    max-height: 100vh;
+    background-image: url('../assets/street-timelapse.jpg');
+    background-size: cover;
+    background-position: 40%;
+  }
+
+  .header {
+    height: 50px;
+    top: 0;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 60px;
+    font-family: 'Varela Round', sans-serif;
+    padding-top: 100px;
+    color: white;
+  }
+
+  .buttons {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loginBtn, .signupBtn {
+    width: 45%;
+    text-decoration: none;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 36px;
+    text-align: center;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.45)
+  }
+
+  .loginBtn {
+    margin-bottom: 30px;
+  }
+}
+
+@media(min-width: 500px) {
+  .home {
+    background: red;
+  }
+}

@@ -1,0 +1,8 @@
+@media(min-width: 0px) {
+  .loginPage {
+    height: 100vh;
+    background-image: url('../../assets/street-timelapse.jpg');
+    background-size: cover;
+    background-position: 40%;
+  }
+}
