@@ -30,7 +30,7 @@ class Login extends Component {
         phone_number: parseInt(phone_number),
         password: password
       })
-      .then(() => localStorage.setItem('user', this.props.id))
+      .then(() => this.props.history.push('/trip-split'))
       .catch(err => console.log(err))
   }
       

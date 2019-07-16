@@ -7,7 +7,7 @@ export const FETCH_TRIPS_FAILED = 'FETCH_TRIPS_FAILED';
 export const fetchTrips = () => dispatch => {
   dispatch({ type: FETCH_TRIPS_START });
   axiosWithAuth()
-    .get("https://localhost:5000/api/trips")
+    .get("http://localhost:5000/api/trips")
     .then(res => {
       dispatch({ 
         type: FETCH_TRIPS_SUCCESS, 
