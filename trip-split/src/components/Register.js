@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { register, login } from '../actions';
 
+import './Register.css';
+
 class Register extends React.Component {
   state = {
     creds: {
@@ -48,9 +50,10 @@ class Register extends React.Component {
 
   render() { console.log(this.state)
     return (
-      <div>
-        <form onSubmit={this.submitHandler}>
+      <div className="registerPage">
+        <form className="registerForm" onSubmit={this.submitHandler}>
           <input 
+            className="input"
             type="text"
             name="name"
             value={this.state.creds.name}
@@ -58,6 +61,7 @@ class Register extends React.Component {
             onChange={this.changeHandler}
           />
           <input
+            className="input"
             type="text"
             name="phone_number"
             value={this.state.creds.phone_number}
@@ -65,6 +69,7 @@ class Register extends React.Component {
             onChange={this.changeHandler}
           />
           <input 
+            className="input"
             type="text"
             name="password"
             value = { this.state.creds.password }
@@ -72,13 +77,14 @@ class Register extends React.Component {
             onChange={this.changeHandler}
           />
           <input
+          className="input"
             type="text"
             name="money_app_link"
             value={this.state.creds.money_app_link}
             placeholder="Money App Link"
             onChange={this.changeHandler}
           />
-          <button type="submit">Submit</button>
+          <button className="registerButton" type="submit">Submit</button>
         </form>
       </div>
     )
