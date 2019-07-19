@@ -21,7 +21,7 @@ export const loginReducer = (state = initialState, action) => {
     console.log(action.payload)
       return {
         ...state,
-        id: action.payload.id,
+        id: action.payload.userId,
         loggingIn: false
       }
     case LOGIN_FAILED:

@@ -5,16 +5,19 @@ export const ADD_TRIP_SUCCESS = 'ADD_TRIP_SUCCESS';
 export const ADD_TRIP_FAILED = 'ADD_TRIP_FAILED';
 
 export const addTrip = trip => dispatch => {
+  console.log('start')
   dispatch({ type: ADD_TRIP_START });
   axiosWithAuth()
-    .post("https://localhost:5000/api/trips", trip)
+    .post(`http://localhost:5000/api/trips`, trip)
     .then(res => {
+      console.log(res.data)
       dispatch({ 
         type: ADD_TRIP_SUCCESS, 
         payload: res.data 
       });
     })
     .catch(err => {
+      console.log(err)
       dispatch({
         type: ADD_TRIP_FAILED,
         payload: err.response

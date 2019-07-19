@@ -30,7 +30,7 @@ class Login extends Component {
         phone_number: parseInt(phone_number),
         password: password
       })
-      .then(() => localStorage.setItem('user', this.props.id))
+      .then(() => this.props.history.push('/trip-split'))
       .catch(err => console.log(err))
   }
       
@@ -40,22 +40,24 @@ class Login extends Component {
     return (
       <div className="loginPage">
         <div className="loginImg">
-          <form onSubmit={this.handleSubmit}>
+          <form className="loginForm" onSubmit={this.handleSubmit}>
             <input 
+              className="input"
               type="text"
               value = { number }
               placeholder="Phone Number"
               name="phone_number"
               onChange={this.handleChange}
             />
-            <input 
+            <input
+              className="input" 
               type="password"
               value = { password }
               placeholder="Password"
               name="password"
               onChange={this.handleChange}
             />
-            <button type="submit">Log In</button>
+            <button className="loginButton" type="submit">Log In</button>
           </form>
         </div>
       </div>

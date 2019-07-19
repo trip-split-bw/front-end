@@ -9,7 +9,6 @@ import MainApp from './components/MainApp';
 import PrivateRoute from './components/Login/PrivateRoute';
 
 class App extends Component {
-  
   render() {
     return (
       <Router>

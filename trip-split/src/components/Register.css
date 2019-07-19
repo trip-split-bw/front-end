@@ -4,42 +4,40 @@
     height: 100vh;
   }
 
-  .home {
+  .registerPage {
     height: 100vh;
-    max-height: 100vh;
     background-image: url('../assets/street-timelapse.jpg');
     background-size: cover;
     background-position: 40%;
   }
 
-  .header {
-    height: 75px;
-    top: 0;
-    left: calc(50vw - 250px);
-    position: absolute;
-    width: 500px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .header h1 {
-    font-size: 60px;
-    font-family: 'Varela Round', sans-serif;
-    color: white;
-  }
-
-  .buttons {
-    height: 100%;
+  .registerForm {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
 
-  .loginBtn, .signupBtn {
-    width: 45%;
+  .registerForm .input {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+    width: 75%;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-bottom: 2px solid white;
+  }
+
+  .registerForm .input::placeholder {
+    color: white;
+  }
+
+  .registerButton {
+    width: 50%;
+    margin-top: 30px;
     text-decoration: none;
     font-family: 'Varela Round', sans-serif;
     font-size: 36px;
@@ -48,16 +46,12 @@
     border: 2px solid white;
     border-radius: 5px;
     padding: 10px 0;
-    background-color: rgba(0, 0, 0, 0.45)
-  }
-
-  .loginBtn {
-    margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0.45);
   }
 }
 
 @media(min-width: 500px) {
-  .home {
+  .registerPage {
     background: url('../assets/street-timelapse.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -65,13 +59,17 @@
     background-size: cover;
   }
 
-  .loginBtn, .signupBtn {
+  .registerForm .input {
+    width: 33%;
+  }
+
+  .registerButton {
     width: 33%;
   }
 }
 
 @media(min-width: 800px) {
-  .buttons {
+  .registerForm {
     max-width: 800px;
     margin: 0 auto;
   }
