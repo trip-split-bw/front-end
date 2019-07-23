@@ -12,6 +12,9 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <header className="header">
+          <h1>TripSplit</h1>
+        </header>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login}/>
         <Route exact path="/register" component={Register} />
