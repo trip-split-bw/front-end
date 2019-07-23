@@ -1,0 +1,116 @@
+.tripCard {
+  width: 90%;
+  margin: 10px auto;
+  border: 2px solid black;
+  border-radius: 5px;
+  /* background-color: rgba(251,98,37,0.8); */
+  background: url('../assets/rowan-heuvel-RJK6p5MJACQ-unsplash.jpg');
+  background-size: cover;
+  background-position: 50% 50%;
+  box-shadow: 
+    4px 4px 8px black, 
+    4px 4px 15px black;
+  height: auto;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.tripName {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 5px; 
+  padding: 5px;
+  width: 200px;
+  text-align: center;
+  text-shadow: -1px -1px 4px black;
+  border: 1px solid black;
+}
+
+.deleteTrip {
+  color: red;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.deleteTrip span {
+  cursor: pointer;
+}
+
+.fare {
+  font-size: 1.6rem;
+  text-shadow: -1px -1px 4px black;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: rgba(0,0,0,0.5);
+  width: 200px;
+  text-align: center;
+}
+
+.fareSplit {
+  margin-top: 5px;
+  background: rgba(0,0,0,0.7);
+  padding: 5px;
+  padding-top: 5px;
+  border-radius: 3px;
+  width: 100%;
+  font-size: 1rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.riderList {
+  width: 100%;
+  margin-top: 10px;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: scroll;
+}
+
+.riderIcon {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(251,98,37); */
+  color: white;
+  margin: 0 20px 10px 20px;
+  position: relative;
+  text-align: center;
+  z-index: 5;
+}
+
+.riderIconOverlay {
+  height: 100%;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: 	green;
+  color: white;
+  margin: 0 10px 10px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+  font-size: 1.6rem;
+}

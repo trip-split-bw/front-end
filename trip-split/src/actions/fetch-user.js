@@ -1,22 +1,22 @@
 import axiosWithAuth from '../components/Login/withAuth';
 
-export const FETCH_TRIPS_START = 'FETCH_TRIPS_START';
-export const FETCH_TRIPS_SUCCESS = 'FETCH_TRIPS_SUCCESS';
-export const FETCH_TRIPS_FAILED = 'FETCH_TRIPS_FAILED';
+export const FETCH_USER_START = 'FETCH_USER_START';
+export const FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS';
+export const FETCH_USER_FAILED = 'FETCH_USER_FAILED';
 
-export const fetchTrips = id => dispatch => {
-  dispatch({ type: FETCH_TRIPS_START });
+export const fetchUser = id => dispatch => {
+  dispatch({ type: FETCH_USER_START });
   axiosWithAuth()
-    .get(`http://localhost:5000/api/users/${id}/trips`)
+    .get(`http://localhost:5000/api/users/${id}/`)
     .then(res => {
       dispatch({ 
-        type: FETCH_TRIPS_SUCCESS, 
+        type: FETCH_USER_SUCCESS, 
         payload: res.data 
       });
     })
     .catch(err => {
       dispatch({
-        type: FETCH_TRIPS_FAILED,
+        type: FETCH_USER_FAILED,
         payload: err.response
       })
     })

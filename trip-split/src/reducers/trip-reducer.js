@@ -5,6 +5,12 @@ import {
   ADD_TRIP_START,
   ADD_TRIP_SUCCESS,
   ADD_TRIP_FAILED,
+  UPDATE_TRIP_START,
+  UPDATE_TRIP_SUCCESS,
+  UPDATE_TRIP_FAILED,
+  DELETE_TRIP_START,
+  DELETE_TRIP_SUCCESS,
+  DELETE_TRIP_FAILED,
 } from '../actions';
 
 const initialState = {
@@ -48,7 +54,38 @@ export const tripReducer = (state = initialState, action) => {
         ...state,
         error: action.payload
       }
-    
+    case UPDATE_TRIP_START:
+      return {
+        ...state,
+        fetching: true
+      }
+    case UPDATE_TRIP_SUCCESS:
+    console.log(action.payload)
+      return {
+        ...state,
+        fetching: false
+      }
+    case UPDATE_TRIP_FAILED:
+      return {
+        ...state,
+        error: action.payload
+      }
+    case DELETE_TRIP_START:
+      return {
+        ...state,
+        fetching: true
+      }
+    case DELETE_TRIP_SUCCESS:
+    console.log(action.payload)
+      return {
+        ...state,
+        fetching: false
+      }
+    case DELETE_TRIP_FAILED:
+      return {
+        ...state,
+        error: action.payload
+      }
     default: return state;
   }
 }
