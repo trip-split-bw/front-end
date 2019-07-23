@@ -10,7 +10,6 @@
   .main-app {
     height: 100%;
     width: 100%;
-    background: lightgray;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -84,7 +83,7 @@
   }
   .currency:before {
     position: absolute;
-    top: 0;
+    top: 15px;
     content:"$";
     left: 15px;
     z-index: 10;
@@ -125,7 +124,7 @@
   }
 
   .riderInput {
-    font-size: 1.3rem;
+    font-size: 1rem;
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
@@ -137,12 +136,27 @@
   .riderLayout {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     border: none;
     width: auto;
     padding: 0;
     margin: 0;
+    height: 120px;
+  }
+
+  .riderLayoutInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .riders {
+    height: calc(100% - 270px);
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   input:focus {

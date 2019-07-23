@@ -5,14 +5,15 @@ import { fetchTrips, addTrip, fetchUser, updateTrip, deleteTrip } from '../actio
 import './MainApp.css';
 
 import Trip from './Trip';
-import Axios from 'axios';
+// import Axios from 'axios';
 
 class MainApp extends React.Component {
   state = {
     tripForm: false,
     riders: [],
     trip: {
-      ride_fare: ''
+      ride_fare: '',
+      name: ''
     },
     rider: {
       name: '',
@@ -52,6 +53,7 @@ class MainApp extends React.Component {
     const id = localStorage.getItem('user');
 
     const trip = {
+      name: this.state.trip.name,
       primary_member_id: Number(id),
       ride_fare: Number(this.state.trip.ride_fare),
       riders: JSON.stringify(this.state.riders.map(rider => ({
@@ -61,12 +63,15 @@ class MainApp extends React.Component {
       })))
     }
 
+    console.log(trip)
+
     this.props.addTrip(trip);
     this.setState({ 
       tripForm: false,
       riders: [],
       trip: {
-        ride_fare: ''
+        ride_fare: '',
+        name: ''
       },
       rider: {
         name: '',
@@ -79,22 +84,22 @@ class MainApp extends React.Component {
     })
     this.props.fetchTrips(id);
 
-    this.state.riders.map(rider => {
-      Axios
-        .post('http://localhost:5000/send-text', {
-          number: parseInt(rider.phone_number),
-          text: `${this.props.user.name} is requesting \$${Math.floor(this.state.trip.ride_fare / (this.state.riders.length + 1))} from your recent trip.\n\nPay via: ${this.props.user.money_app_link}`
-        })
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
-    })
+    // this.state.riders.map(rider => {
+    //   Axios
+    //     .post('http://localhost:5000/send-text', {
+    //       number: parseInt(rider.phone_number),
+    //       text: `${this.props.user.name} is requesting \$${Math.floor(this.state.trip.ride_fare / (this.state.riders.length + 1))} from your recent trip.\n\nPay via: ${this.props.user.money_app_link}`
+    //     })
+    //     .then(res => console.log(res))
+    //     .catch(err => console.log(err))
+    // })
   }
 
   changeHandler = (e, type) => {
-    type === 'ride_fare' ?
+    type === 'ride_fare' || type === 'name' ?
       this.setState({
         trip: {
-          ...this.state.creds,
+          ...this.state.trip,
           [e.target.name]: e.target.value
         }
       })
@@ -179,9 +184,31 @@ class MainApp extends React.Component {
   }
 
   openForm = e => {
-    e.preventDefault()
+    if(e) {
+      e.preventDefault()
+    }
+    
     this.setState({
       tripForm: true
+    })
+  }
+
+  closeForm = () => {
+    this.setState({ 
+      tripForm: false,
+      riders: [],
+      trip: {
+        ride_fare: '',
+        name: ''
+      },
+      rider: {
+        name: '',
+        phone_number: ''
+      },
+      updateRider: {
+        name: '',
+        phone_number: ''
+      } 
     })
   }
 
@@ -195,20 +222,31 @@ class MainApp extends React.Component {
     return (
       <div className="main-app">
       <header className="mainHeader" onMouseLeave = { !this.state.logoutMenu ? null : () => this.setState({ logoutMenu: false }) }>
-        <h1 style={{ width: '25%' }}>TripSplit</h1>
+        <h1 style={{ width: '35%' }}>TripSplit</h1>
         <div style = {{ border: '2px solid black', borderRadius: '50%', fontSize: '1.5rem', padding: '5px', background: 'white', color: 'black' }}>
-          <i style={{ width: '25%' }} className="fas fa-car"></i>
+          { this.state.tripForm ? 
+            <div 
+              onClick = { () => this.closeForm() }
+              style = {{ color: 'red', padding: '0 4px' }}
+            >X</div>
+          :
+            <i 
+              onClick = { () => this.openForm() }
+            className="fas fa-car"></i>
+          }
         </div>
         <h1 
           style = {{ 
             fontSize: '1rem', 
             cursor: 'pointer',
+            width: '35%',
+            textAlign: 'right',
             textDecoration: this.state.logoutMenu ? 'underline' : 'none'
           }}
           onMouseEnter = { this.state.logoutMenu ? null : () => this.setState({ logoutMenu: true }) }
 
         >
-          Welcome, <br />{ this.props.user.name || 'user' }!
+          Welcome, { this.props.user.name || 'user' }!
         </h1>
       </header>
       <div 
@@ -244,7 +282,7 @@ class MainApp extends React.Component {
               />
             ))
           :
-            <p>Looks like you don't have any open trips! Go ahead and start one now!</p>
+            <p style={{ color: 'black', marginTop: '50px' }}>Looks like you don't have any open trips! Go ahead and start one now!</p>
           }
         </div>
         <div
@@ -253,8 +291,18 @@ class MainApp extends React.Component {
         >
           <form 
             onSubmit = { this.state.tripForm ? e => this.addTripHandler(e) : e => this.openForm(e) }
-            style = {{ marginBottom: '20px' }}
+            style = {{ marginBottom: '20px', display: 'flex', flexDirection: 'column' }}
           >
+            <span className="tripNameForm">
+              <input
+                className="input"
+                type="text"
+                value={this.state.trip.name}
+                name="name"
+                placeholder="Trip Name"
+                onChange={e => this.changeHandler(e, 'name')}
+              />
+            </span>
             <span className="currency">
               <input 
                 className="input"
@@ -271,54 +319,56 @@ class MainApp extends React.Component {
               { this.state.tripForm ? "CONFIRM" : "ADD TRIP" }
             </button>
           </form>
-          <h1 className="heading">Riders:</h1>
-          { this.state.riders.length > 0 ?
-            this.state.riders.map((rider, i) => (
-              rider.update ?
-                <form 
-                  className="riderLayout"
-                  onSubmit = { e => this.confirmUpdate(e, i) }
-                >
-                  <input 
-                    className="riderInput"
-                    type="text"
-                    placeholder = { `${rider.name}` }
-                    name="name"
-                    value = { this.state.updateRider.name }
-                    onChange = { this.updateChangeHandler }
-                  />
-                  <input 
-                    className="riderInput"
-                    type="text"
-                    placeholder = { `${rider.phone_number}` }
-                    name="phone_number"
-                    value = { this.state.updateRider.phone_number }
-                    onChange = { this.updateChangeHandler }
-                  />
-                  <input 
-                    type="submit"
-                    className="hiddenSubmit"
-                    value="Confirm"
-                  />
-                </form>
-              :
-                <div className="riderLayout">
-                  <div style={{display:'flex', alignItems: 'center', height: '50px'}}>
-                    <span className="heading">{i + 1}.&nbsp;&nbsp;</span>
-                    <p className="heading">{ rider.name }</p>
-                  </div>
-                  <p className="heading">{ rider.phone_number }</p>
-                  <button 
-                    onClick = { () => this.editRider(rider.name)}
-                    className="editBtn"
+          <div className="riders">
+            <h1 className="heading">Riders:</h1>
+            { this.state.riders.length > 0 ?
+              this.state.riders.map((rider, i) => (
+                rider.update ?
+                  <form 
+                    className="riderLayout"
+                    onSubmit = { e => this.confirmUpdate(e, i) }
                   >
-                    edit
-                  </button>
-                </div>
-              ))
-            :
-              <h1 style={{color: 'black' }}>No riders listed, add some</h1>
-          }
+                    <input 
+                      className="riderInput"
+                      type="text"
+                      placeholder = { `${rider.name}` }
+                      name="name"
+                      value = { this.state.updateRider.name }
+                      onChange = { this.updateChangeHandler }
+                    />
+                    <input 
+                      className="riderInput"
+                      type="text"
+                      placeholder = { `${rider.phone_number}` }
+                      name="phone_number"
+                      value = { this.state.updateRider.phone_number }
+                      onChange = { this.updateChangeHandler }
+                    />
+                    <input 
+                      type="submit"
+                      className="hiddenSubmit"
+                      value="Confirm"
+                    />
+                  </form>
+                :
+                  <div className="riderLayoutInfo">
+                    <div style={{display:'flex', alignItems: 'center', height: '50px'}}>
+                      <span className="heading">{i + 1}.&nbsp;&nbsp;</span>
+                      <p className="heading">{ rider.name }</p>
+                    </div>
+                    <p className="heading">{ rider.phone_number }</p>
+                    <button 
+                      onClick = { () => this.editRider(rider.name)}
+                      className="editBtn"
+                    >
+                      edit
+                    </button>
+                  </div>
+                ))
+              :
+                <h1 style={{color: 'black' }}>No riders listed, add some</h1>
+            }
+          </div>
           <form 
             className="riderLayout"
             onSubmit = { this.addRider }

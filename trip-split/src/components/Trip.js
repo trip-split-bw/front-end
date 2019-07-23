@@ -5,17 +5,19 @@ class Trip extends Component{
   state = {
     ride_fare: 0,
     riders: [],
+    tripName: '',
     editTrip: false,
     confirmBtn: false,
     id: null
   }
 
   componentDidMount() {
-    let { ride_fare, riders, id } = this.props.trip;
+    let { ride_fare, name, riders, id } = this.props.trip;
     riders = JSON.parse(riders)
 
     this.setState({
       ride_fare: ride_fare,
+      tripName: name,
       riders: riders,
       id: id
     })
@@ -68,6 +70,9 @@ class Trip extends Component{
             <i className="fal fa-trash-alt"></i>
           </span>
         </div>
+        <div className="tripName">
+          <p>{this.state.tripName}</p>
+        </div>
         { this.state.editTrip ? 
           <form 
             onSubmit = { e => this.updateTrip(e, true) }
@@ -116,9 +121,12 @@ class Trip extends Component{
                   null
                 }
               </div>
-              <span>{ rider.name }</span>
+              <span style={{ fontSize: '0.7rem' }}>{ rider.name }</span>
             </div>
           ))}
+        </div>
+        <div className="fareSplit">
+          <p>Each rider owes: ${this.state.ride_fare / (this.state.riders.length + 1)}</p>
         </div>
       </div>
     )
